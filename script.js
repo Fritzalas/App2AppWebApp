@@ -28,7 +28,7 @@ confirmBtn.addEventListener('click', () => {
         // Build URI
         createTestProviderDataV2();
         let tip = "0.0"
-        let installments = "0"
+        let installments = ""
         let email = "kosmasfrijalas@gmail.com";
         let phoneNumber = ""
         let uri = `request/v2?Amount=${amount}&CurrencyCode=EUR&TxnType=0&CashbackAmount=0&PreLoadTransaction=false&PreloadExpiration=0&isTaxFree=false&TipAmount=${tip}&Installments=${installments}&CustomerEmail=${email}&CustomerPhone=${phoneNumber}&uid=${crypto.randomUUID().toString()}&transactionName=sale&ProviderData=${json}&appId=WEB_INTENT`;

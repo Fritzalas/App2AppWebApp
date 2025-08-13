@@ -17,6 +17,7 @@ button.addEventListener('click', () => {
 
     // Encode URI
     try {
+        uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
         uri = encodeURIComponent(uri);
         uri = uriPrefix + uri;
     } catch (e) {
@@ -24,7 +25,7 @@ button.addEventListener('click', () => {
     }
     console.log("uri " + uri);
     console.log("Sending txn request through intent");
-    uri = `intent://` + uri
+    uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
     // Open URI using deeplink
     window.location.href = uri; // triggers Android app if installed
 });

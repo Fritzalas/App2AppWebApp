@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+  <title>TID Result</title>
+</head>
+<body>
+<h1 id="tidText">Waiting for TID...</h1>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const tid = params.get("tid");
+  if (tid) {
+    document.getElementById("tidText").textContent = "tid:" + tid;
+  } else {
+    document.getElementById("tidText").textContent = "No TID received";
+  }
+</script>
+</body>
+</html>

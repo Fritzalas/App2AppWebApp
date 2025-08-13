@@ -7,13 +7,15 @@ button.addEventListener('click', () => {
     tidText.textContent = 'tid:649999767';
 
     const uriPrefix = `nbgpaytxn/`;
-
+    // This callback URL should be publicly accessible if using https
+    const callbackUrl = "https://fritzalas.github.io/App2AppWebApp/result";
     const msg = `Performing get TID V2 transaction`;
     console.log(msg)
 
     // Construct the deeplink URI
     const appId = "WEB_INTENT"; // replace with actual BuildConfig.APPLICATION_ID
-    let uri = `request/v2?&TxnType=12&appId=${appId}`;
+    // Build URI
+    let uri = `request/v2?&TxnType=12&appId=${appId}&callback=${encodeURIComponent(callbackUrl)}`;
 
     // Encode URI
     try {

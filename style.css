@@ -1,4 +1,4 @@
-/* Full viewport background with gradient */
+/* Body background only */
 body {
     margin: 0;
     padding: 0;
@@ -7,93 +7,18 @@ body {
     background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    color: white;
 }
 
-/* Gradient animation */
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Container for top elements */
-body > * {
-    margin: 0;
-    padding: 0.5em 1em;
-}
-
-/* Button styling */
-#getTidBtn {
-    position: absolute;
-    top: 1em;
-    left: 1em;
-    padding: 0.7em 1.5em;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: white;
-    background: rgba(0,0,0,0.25);
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#getTidBtn:hover {
-    background: rgba(0,0,0,0.4);
-    transform: scale(1.05);
-}
-
-/* Text styling */
-#tidText {
-    position: absolute;
-    top: 1em;
-    right: 1em;
-    max-width: 50%;
-    font-size: 1em;
-    line-height: 1.4em;
-    text-align: right;
-    background: rgba(0,0,0,0.2);
-    padding: 0.7em 1em;
-    border-radius: 10px;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-    #tidText {
-        max-width: 70%;
-        font-size: 0.95em;
-        text-align: left;
-    }
-
-    #getTidBtn {
-        font-size: 1em;
-        padding: 0.6em 1.2em;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    #tidText {
-        max-width: 90%;
-        font-size: 0.9em;
-    }
-
-    #getTidBtn {
-        font-size: 0.95em;
-        padding: 0.5em 1em;
-    }
-}
-/* Top container for button and text */
+/* Top-bar container at top center */
 .top-bar {
+    position: absolute;   /* pin to viewport */
+    top: 1em;             /* distance from top */
+    left: 50%;            /* horizontal center */
+    transform: translateX(-50%); /* center accurately */
     display: flex;
-    justify-content: space-between; /* Push button left, text right */
-    align-items: flex-start;
-    padding: 1em;
-    flex-wrap: wrap; /* Allows text to wrap under button on small screens */
+    flex-direction: column; /* stack vertically */
+    align-items: center;    /* center horizontally inside */
+    gap: 0.5em;             /* spacing between button and text */
 }
 
 /* Button styling */
@@ -107,7 +32,6 @@ body > * {
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-bottom: 0.5em; /* Space if wrapped on mobile */
 }
 
 #getTidBtn:hover {
@@ -117,38 +41,12 @@ body > * {
 
 /* Text styling */
 #tidText {
-    max-width: 60%;
+    max-width: 90%;
     font-size: 1em;
     line-height: 1.4em;
-    text-align: right;
+    text-align: center;
     background: rgba(0,0,0,0.2);
     padding: 0.7em 1em;
     border-radius: 10px;
     word-wrap: break-word;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-    #tidText {
-        max-width: 70%;
-        font-size: 0.95em;
-        text-align: left;
-    }
-
-    #getTidBtn {
-        font-size: 1em;
-        padding: 0.6em 1.2em;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    #tidText {
-        max-width: 100%;
-        font-size: 0.9em;
-    }
-
-    #getTidBtn {
-        font-size: 0.95em;
-        padding: 0.5em 1em;
-    }
 }

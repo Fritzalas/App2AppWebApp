@@ -5,6 +5,10 @@ const openBtn = document.getElementById('getTidBtn2');
 const cancelBtn = document.getElementById('cancelModal');
 const confirmBtn = document.getElementById('confirmModal');
 const amountInput = document.getElementById('saleAmount');
+const tipAmount = document.getElementById('tipAmount');
+const installments = document.getElementById('installments');
+const email = document.getElementById('email');
+const phone = document.getElementById('phone');
 let json;
 
 openBtn.addEventListener('click', () => {
@@ -24,14 +28,9 @@ confirmBtn.addEventListener('click', () => {
         const msg = `Performing Sale V2 transaction`;
         console.log(msg)
         // Construct the deeplink URI
-        const appId = "WEB_INTENT"; // replace with actual BuildConfig.APPLICATION_ID
         // Build URI
         createTestProviderDataV2();
-        let tip = "0.0"
-        let installments = ""
-        let email = "kosmasfrijalas@gmail.com";
-        let phoneNumber = ""
-        let uri = `request/v2?Amount=${amount}&CurrencyCode=EUR&TxnType=0&CashbackAmount=0&PreLoadTransaction=false&PreloadExpiration=0&isTaxFree=false&TipAmount=${tip}&Installments=${installments}&CustomerEmail=${email}&CustomerPhone=${phoneNumber}&uid=${crypto.randomUUID().toString()}&transactionName=sale&ProviderData=${json}&appId=WEB_INTENT&callback=${encodeURIComponent(callbackUrl)}`;
+        let uri = `request/v2?Amount=${amount}&CurrencyCode=EUR&TxnType=0&CashbackAmount=0&PreLoadTransaction=false&PreloadExpiration=0&isTaxFree=false&TipAmount=${tipAmount.value.trim()}&Installments=${installments.value.trim()}&CustomerEmail=${email.value.trim()}&CustomerPhone=${phone.value.trim()}&uid=${crypto.randomUUID().toString()}&transactionName=sale&ProviderData=${json}&appId=WEB_INTENT&callback=${encodeURIComponent(callbackUrl)}`;
         // Encode URI
         try {
             uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;

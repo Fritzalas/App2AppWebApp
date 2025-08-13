@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TID Result</title>
   <style>
-    /* Animated gradient background */
     body {
       margin: 0;
-      padding: 0;
       height: 100vh;
       font-family: Arial, sans-serif;
       background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
@@ -16,10 +14,12 @@
       animation: gradientBG 15s ease infinite;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start; /* start from top */
       align-items: center;
       color: white;
       text-align: center;
+      /* give space for top content */
+      padding: 50px 0 0;
     }
 
     @keyframes gradientBG {
@@ -36,7 +36,7 @@
     #resultContainer {
       width: 90%;
       max-width: 500px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .field {
@@ -65,6 +65,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       text-decoration: none;
+      display: inline-block;
     }
 
     #backBtn:hover {
@@ -72,7 +73,6 @@
       transform: scale(1.05);
     }
 
-    /* Responsive adjustments */
     @media screen and (max-width: 480px) {
       #backBtn {
         padding: 0.6em 1.5em;
@@ -88,6 +88,7 @@
 </head>
 <body>
 <h1>Transaction Result</h1>
+
 <div id="resultContainer"></div>
 
 <!-- Back button -->

@@ -4,7 +4,7 @@ const tidText = document.getElementById('tidText');
 
 // Add click event
 button.addEventListener('click', () => {
-    tidText.textContent = 'tid:64999976';
+    tidText.textContent = 'tid:649999767';
 
     const uriPrefix = `nbgpaytxn/`;
 

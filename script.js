@@ -5,4 +5,19 @@ const tidText = document.getElementById('tidText');
 // Add click event
 button.addEventListener('click', () => {
     tidText.textContent = 'tid:64999976';
+
+    const msg = `Performing get TID V2 transaction`;
+    console.log(msg)
+
+    // Construct the deeplink URI
+    const appId = "WEB_INTENT"; // replace with actual BuildConfig.APPLICATION_ID
+    const uriPrefix = `intent://`; // or cosmotepaytxn://
+    let uri = `request/v2?&TxnType=12&appId=${appId}`;
+
+    // Encode URI
+    uri = encodeURIComponent(uri);
+    uri = uriPrefix + uri;
+
+    // Open URI using deeplink
+    window.location.href = uri; // triggers Android app if installed
 });

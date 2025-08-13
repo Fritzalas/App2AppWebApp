@@ -4,8 +4,6 @@ const tidText = document.getElementById('tidText');
 
 // Add click event
 button.addEventListener('click', () => {
-    tidText.textContent = 'tid:649999767';
-
     const uriPrefix = `nbgpaytxn/`;
     // This callback URL should be publicly accessible if using https
     const callbackUrl = "https://fritzalas.github.io/App2AppWebApp/result";

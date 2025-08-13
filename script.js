@@ -92,19 +92,19 @@ function createTestProviderDataV2() {
     const providerId = '000';
     const epwnymia_paroxoy = 'Mellon Technologies';
     const signature = "3046022100DC4350AD0ABB451701C9592D07A06EA7FB3DB021786BA72755E41D9452562833022100CE112AF4252C606862F2CB9FC1AC86FD47D2CC94DFFFFAF6CCD2FD699705E323";
-    const providerDataUid = "D4F6A5F5C6123658F78369E5191ED5C9D73CB7AC";
+    const uid = "D4F6A5F5C6123658F78369E5191ED5C9D73CB7AC";
     const mark = "400013293980417";
     const signatureTimestamp = "20231114100000";
     const netAmount = "100";
     const vatAmount = "24";
     const totalAmount = "124";
     const paidAmount = "124";
-    const providerTid = "01234567";
+    const tid = "01234567";
     const providerData = {
         providerId, epwnymia_paroxoy,
         signature,
-        providerDataUid, mark,
-        signatureTimestamp, netAmount, vatAmount, totalAmount, paidAmount, providerTid
+        uid, mark,
+        signatureTimestamp, netAmount, vatAmount, totalAmount, paidAmount, tid
     }
     json = JSON.stringify(providerData);
     console.log("Json " + json);

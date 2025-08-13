@@ -31,7 +31,7 @@ confirmBtn.addEventListener('click', () => {
         let installments = ""
         let email = "kosmasfrijalas@gmail.com";
         let phoneNumber = ""
-        let uri = `request/v2?Amount=${amount}&CurrencyCode=EUR&TxnType=0&CashbackAmount=0&PreLoadTransaction=false&PreloadExpiration=0&isTaxFree=false&TipAmount=${tip}&Installments=${installments}&CustomerEmail=${email}&CustomerPhone=${phoneNumber}&uid=${crypto.randomUUID().toString()}&transactionName=sale&ProviderData=${json}&appId=WEB_INTENT`;
+        let uri = `request/v2?Amount=${amount}&CurrencyCode=EUR&TxnType=0&CashbackAmount=0&PreLoadTransaction=false&PreloadExpiration=0&isTaxFree=false&TipAmount=${tip}&Installments=${installments}&CustomerEmail=${email}&CustomerPhone=${phoneNumber}&uid=${crypto.randomUUID().toString()}&transactionName=sale&ProviderData=${json}&appId=WEB_INTENT&callback=${encodeURIComponent(callbackUrl)}`;
         // Encode URI
         try {
             uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;

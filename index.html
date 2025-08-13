@@ -9,8 +9,28 @@
 </head>
 <body>
 <div class="top-bar">
-  <button id="getTidBtn">getTid</button>
-  <div id="tidText">With GetTID button, the user can retrieve the tid of SoftPOS that merchant is working.</div>
+  <!-- First button + text -->
+  <div class="button-text">
+    <button id="getTidBtn1">getTid</button>
+    <div id="tidText1">With GetTID button, the user can retrieve the tid of SoftPOS that merchant is working.</div>
+  </div>
+
+  <!-- Second button + text -->
+  <div class="button-text">
+    <button id="getTidBtn2">Start Sale V2</button>
+    <div id="tidText2">With this button the user can start an App2App sale V2.</div>
+  </div>
+</div>
+<!-- Modal -->
+<div id="saleModal" class="modal">
+  <div class="modal-content">
+    <h2>Enter Sale Amount</h2>
+    <label for="saleAmount"></label><input type="number" id="saleAmount" placeholder="Enter amount..." />
+    <div class="modal-buttons">
+      <button id="cancelModal">Cancel</button>
+      <button id="confirmModal">Confirm</button>
+    </div>
+  </div>
 </div>
 <!-- Link the JS file -->
 <script src="script.js"></script>

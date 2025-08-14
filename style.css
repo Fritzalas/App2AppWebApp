@@ -143,3 +143,47 @@ body {
     border-radius: 8px;
     font-size: 1em;
 }
+.button-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1em;
+    text-align: center;
+    max-width: 90%;
+}
+
+.button-text button {
+    padding: 0.7em 1.5em;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    background: rgba(0,0,0,0.25);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button-text button:hover {
+    background: rgba(0,0,0,0.4);
+    transform: scale(1.05);
+}
+
+.button-text div {
+    margin-top: 0.5em;
+    background: rgba(0,0,0,0.2);
+    padding: 0.7em 1em;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+.modal-content input[type="number"],
+.modal-content input[type="tel"],
+.modal-content input[type="email"],
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 0.7em;
+    margin-top: 1em;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+}

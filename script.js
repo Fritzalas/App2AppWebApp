@@ -153,3 +153,56 @@ document.getElementById('confirmUIDModal').addEventListener('click', () => {
 window.addEventListener('click', (e) => {
     if (e.target === uidModal) uidModal.style.display = 'none';
 });
+const fourthModal = document.getElementById('fourthModal');
+
+// Open modal
+document.getElementById('getTidBtn4').addEventListener('click', () => {
+    fourthModal.style.display = 'flex';
+});
+
+// Cancel modal
+document.getElementById('cancelFourthModal').addEventListener('click', () => {
+    fourthModal.style.display = 'none';
+});
+
+// Confirm modal
+document.getElementById('confirmFourthModal').addEventListener('click', () => {
+    const amount = document.getElementById('fourthAmount').value.trim();
+    const installments = document.getElementById('fourthInstallments').value.trim();
+    const phone = document.getElementById('fourthPhone').value.trim();
+    const email = document.getElementById('fourthEmail').value.trim();
+    const initialTransaction = document.getElementById('fourthInitialTransaction').value.trim();
+
+    if (!amount) {
+        alert('Please enter the Amount.');
+        return;
+    }
+    const uriPrefix = `nbgpaytxn/`;
+    // This callback URL should be publicly accessible if using https
+    const callbackUrl = "https://fritzalas.github.io/App2AppWebApp/result";
+    const msg = `Performing Refund V2 transaction`;
+    console.log(msg)
+    // Construct the deeplink URI
+    // Build URI
+    createTestProviderDataV2();
+    let uri = `request/v2?TxnType=1&CurrencyCode=EUR&Installments=${installments}&Amount=${amount}&CustomerEmail=${email}&CustomerPhone=${phone}&InitialTransaction=${initialTransaction}&ProviderData=${json}&uid=${crypto.randomUUID().toString()}&appId=WEB_INTENT&callback=${encodeURIComponent(callbackUrl)}`;
+    // Encode URI
+    try {
+        uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+        uri = encodeURIComponent(uri);
+        uri = uriPrefix + uri;
+    } catch (e) {
+        console.log(e.message);
+    }
+    console.log("uri " + uri);
+    console.log("Sending txn request through intent");
+    uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+    // Open URI using deeplink
+    window.location.href = uri; // triggers Android app if installed
+    fourthModal.style.display = 'none';
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    if (e.target === fourthModal) fourthModal.style.display = 'none';
+});

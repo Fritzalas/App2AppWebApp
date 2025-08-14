@@ -108,3 +108,48 @@ function createTestProviderDataV2() {
     json = JSON.stringify(providerData);
     console.log("Json " + json);
 }
+// Third button modal logic
+const uidModal = document.getElementById('uidModal');
+document.getElementById('getTidBtn3').addEventListener('click', () => {
+    uidModal.style.display = 'flex';
+});
+document.getElementById('cancelUIDModal').addEventListener('click', () => {
+    uidModal.style.display = 'none';
+});
+document.getElementById('confirmUIDModal').addEventListener('click', () => {
+    const originalUID = document.getElementById('originalUID').value.trim();
+    const customerEmail = document.getElementById('customerEmail').value.trim();
+    const customerPhone = document.getElementById('customerPhone').value.trim();
+    if (!originalUID) {
+        alert('Please enter the Original UID.');
+        return;
+    }
+    const uriPrefix = `nbgpaytxn/`;
+    // This callback URL should be publicly accessible if using https
+    const callbackUrl = "https://fritzalas.github.io/App2AppWebApp/result";
+    const msg = `Performing Void V2 transaction`;
+    console.log(msg)
+    // Construct the deeplink URI
+    // Build URI
+    createTestProviderDataV2();
+    let uri = `request/v2?TxnType=10&OriginalIdentifier=${originalUID}&CustomerEmail=${customerEmail}&CustomerPhone=${customerPhone}&uid=${crypto.randomUUID().toString()}&appId=WEB_INTENT&callback=${encodeURIComponent(callbackUrl)}`;
+    // Encode URI
+    try {
+        uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+        uri = encodeURIComponent(uri);
+        uri = uriPrefix + uri;
+    } catch (e) {
+        console.log(e.message);
+    }
+    console.log("uri " + uri);
+    console.log("Sending txn request through intent");
+    uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+    // Open URI using deeplink
+    window.location.href = uri; // triggers Android app if installed
+    uidModal.style.display = 'none';
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    if (e.target === uidModal) uidModal.style.display = 'none';
+});

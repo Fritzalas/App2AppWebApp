@@ -20,6 +20,15 @@
     <button id="getTidBtn2">Start Sale V2</button>
     <div id="tidText2">With this button the user can start an App2App sale V2.</div>
   </div>
+
+  <!-- Third button + text -->
+  <div class="button-text">
+    <button id="getTidBtn3">Start Void V2</button>
+    <div id="tidText3">
+      With this button the user can initiate a void transaction with V2 protocol.
+    </div>
+  </div>
+
 </div>
 <!-- Modal -->
 <div id="saleModal" class="modal">
@@ -33,6 +42,20 @@
     <div class="modal-buttons">
       <button id="cancelModal">Cancel</button>
       <button id="confirmModal">Confirm</button>
+    </div>
+  </div>
+</div>
+<!-- Modal for Third Button -->
+<div id="uidModal" class="modal">
+  <div class="modal-content">
+    <h2>Enter Original UID</h2>
+    <input type="text" id="originalUID" placeholder="Original UID (required)" required />
+
+    <input type="email" id="customerEmail" placeholder="Customer Email (optional)" />
+    <input type="tel" id="customerPhone" placeholder="Customer Phone (optional)" />
+    <div class="modal-buttons">
+      <button id="cancelUIDModal">Cancel</button>
+      <button id="confirmUIDModal">Confirm</button>
     </div>
   </div>
 </div>

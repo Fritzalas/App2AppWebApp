@@ -9,6 +9,8 @@ const tipAmount = document.getElementById('tipAmount');
 const installments = document.getElementById('installments');
 const email = document.getElementById('email');
 const phone = document.getElementById('phone');
+const modeToggle = document.getElementById('modeToggle');
+const modeLabel = document.getElementById('modeLabel');
 let json;
 
 openBtn.addEventListener('click', () => {
@@ -22,7 +24,13 @@ cancelBtn.addEventListener('click', () => {
 confirmBtn.addEventListener('click', () => {
     const amount = amountInput.value.trim();
     if (amount && Number(amount) > 0) {
-        const uriPrefix = `nbgpaytxn/`;
+        // Determine which mode is active
+        const isCosmote = document.getElementById('modeToggle').checked;
+        // Dynamically set URI prefix and package name
+        const uriPrefix = isCosmote ? `cosmotepaytxn/` : `nbgpaytxn/`;
+        const packageName = isCosmote
+            ? `com.mellongroup.cosmotepos.debug`
+            : `com.mellongroup.nbgsoftpos.revised.debug`;
         // This callback URL should be publicly accessible if using https
         const callbackUrl = "https://fritzalas.github.io/App2AppWebApp/result";
         const msg = `Performing Sale V2 transaction`;
@@ -33,7 +41,7 @@ confirmBtn.addEventListener('click', () => {
         let uri = `request/v2?Amount=${amount}&CurrencyCode=EUR&TxnType=0&CashbackAmount=0&PreLoadTransaction=false&PreloadExpiration=0&isTaxFree=false&TipAmount=${tipAmount.value.trim()}&Installments=${installments.value.trim()}&CustomerEmail=${email.value.trim()}&CustomerPhone=${phone.value.trim()}&uid=${crypto.randomUUID().toString()}&transactionName=sale&ProviderData=${json}&appId=WEB_INTENT&callback=${encodeURIComponent(callbackUrl)}`;
         // Encode URI
         try {
-            uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+            uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
             uri = encodeURIComponent(uri);
             uri = uriPrefix + uri;
         } catch (e) {
@@ -41,7 +49,7 @@ confirmBtn.addEventListener('click', () => {
         }
         console.log("uri " + uri);
         console.log("Sending txn request through intent");
-        uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+        uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
         // Open URI using deeplink
         window.location.href = uri; // triggers Android app if installed
     } else {
@@ -58,7 +66,13 @@ window.addEventListener('click', (e) => {
 
 // Add click event
 button.addEventListener('click', () => {
-    const uriPrefix = `nbgpaytxn/`;
+    // Determine which mode is active
+    const isCosmote = document.getElementById('modeToggle').checked;
+    // Dynamically set URI prefix and package name
+    const uriPrefix = isCosmote ? `cosmotepaytxn/` : `nbgpaytxn/`;
+    const packageName = isCosmote
+        ? `com.mellongroup.cosmotepos.debug`
+        : `com.mellongroup.nbgsoftpos.revised.debug`;
     // This callback URL should be publicly accessible if using https
     const callbackUrl = "https://fritzalas.github.io/App2AppWebApp/result";
     const msg = `Performing get TID V2 transaction`;
@@ -71,7 +85,7 @@ button.addEventListener('click', () => {
 
     // Encode URI
     try {
-        uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+        uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
         uri = encodeURIComponent(uri);
         uri = uriPrefix + uri;
     } catch (e) {
@@ -79,7 +93,7 @@ button.addEventListener('click', () => {
     }
     console.log("uri " + uri);
     console.log("Sending txn request through intent");
-    uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+    uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
     // Open URI using deeplink
     window.location.href = uri; // triggers Android app if installed
 });
@@ -124,7 +138,13 @@ document.getElementById('confirmUIDModal').addEventListener('click', () => {
         alert('Please enter the Original UID.');
         return;
     }
-    const uriPrefix = `nbgpaytxn/`;
+    // Determine which mode is active
+    const isCosmote = document.getElementById('modeToggle').checked;
+    // Dynamically set URI prefix and package name
+    const uriPrefix = isCosmote ? `cosmotepaytxn/` : `nbgpaytxn/`;
+    const packageName = isCosmote
+        ? `com.mellongroup.cosmotepos.debug`
+        : `com.mellongroup.nbgsoftpos.revised.debug`;
     // This callback URL should be publicly accessible if using https
     const callbackUrl = "https://fritzalas.github.io/App2AppWebApp/result";
     const msg = `Performing Void V2 transaction`;
@@ -135,7 +155,7 @@ document.getElementById('confirmUIDModal').addEventListener('click', () => {
     let uri = `request/v2?TxnType=10&OriginalIdentifier=${originalUID}&CustomerEmail=${customerEmail}&CustomerPhone=${customerPhone}&uid=${crypto.randomUUID().toString()}&appId=WEB_INTENT&callback=${encodeURIComponent(callbackUrl)}`;
     // Encode URI
     try {
-        uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+        uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
         uri = encodeURIComponent(uri);
         uri = uriPrefix + uri;
     } catch (e) {
@@ -143,7 +163,7 @@ document.getElementById('confirmUIDModal').addEventListener('click', () => {
     }
     console.log("uri " + uri);
     console.log("Sending txn request through intent");
-    uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+    uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
     // Open URI using deeplink
     window.location.href = uri; // triggers Android app if installed
     uidModal.style.display = 'none';
@@ -177,7 +197,13 @@ document.getElementById('confirmFourthModal').addEventListener('click', () => {
         alert('Please enter the Amount.');
         return;
     }
-    const uriPrefix = `nbgpaytxn/`;
+    // Determine which mode is active
+    const isCosmote = document.getElementById('modeToggle').checked;
+    // Dynamically set URI prefix and package name
+    const uriPrefix = isCosmote ? `cosmotepaytxn/` : `nbgpaytxn/`;
+    const packageName = isCosmote
+        ? `com.mellongroup.cosmotepos.debug`
+        : `com.mellongroup.nbgsoftpos.revised.debug`;
     // This callback URL should be publicly accessible if using https
     const callbackUrl = "https://fritzalas.github.io/App2AppWebApp/result";
     const msg = `Performing Refund V2 transaction`;
@@ -188,7 +214,7 @@ document.getElementById('confirmFourthModal').addEventListener('click', () => {
     let uri = `request/v2?TxnType=1&CurrencyCode=EUR&Installments=${installments}&Amount=${amount}&CustomerEmail=${email}&CustomerPhone=${phone}&InitialTransaction=${initialTransaction}&ProviderData=${json}&uid=${crypto.randomUUID().toString()}&appId=WEB_INTENT&callback=${encodeURIComponent(callbackUrl)}`;
     // Encode URI
     try {
-        uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+        uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
         uri = encodeURIComponent(uri);
         uri = uriPrefix + uri;
     } catch (e) {
@@ -196,7 +222,7 @@ document.getElementById('confirmFourthModal').addEventListener('click', () => {
     }
     console.log("uri " + uri);
     console.log("Sending txn request through intent");
-    uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=com.mellongroup.nbgsoftpos.revised.debug;end`;
+    uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
     // Open URI using deeplink
     window.location.href = uri; // triggers Android app if installed
     fourthModal.style.display = 'none';
@@ -205,4 +231,13 @@ document.getElementById('confirmFourthModal').addEventListener('click', () => {
 // Close modal when clicking outside
 window.addEventListener('click', (e) => {
     if (e.target === fourthModal) fourthModal.style.display = 'none';
+});
+modeToggle.addEventListener('change', () => {
+    if (modeToggle.checked) {
+        modeLabel.textContent = 'Payzy SoftPos';
+        document.body.style.background = 'linear-gradient(-45deg, #00c6ff, #0072ff, #00c6ff, #0072ff)';
+    } else {
+        modeLabel.textContent = 'NBG SoftPos';
+        document.body.style.background = 'linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb)';
+    }
 });

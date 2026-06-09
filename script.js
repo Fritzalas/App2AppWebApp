@@ -229,15 +229,19 @@ document.getElementById('confirmFourthModal').addEventListener('click', () => {
 });
 
 // Close modal when clicking outside
-window.addEventListener('click', (e) => {
-    if (e.target === fourthModal) fourthModal.style.display = 'none';
-});
-modeToggle.addEventListener('change', () => {
+function updateMode() {
     if (modeToggle.checked) {
         modeLabel.textContent = 'Payzy SoftPos';
-        document.body.style.background = 'linear-gradient(-45deg, #00c6ff, #0072ff, #00c6ff, #0072ff)';
+        document.body.style.background =
+            'linear-gradient(-45deg, #00c6ff, #0072ff, #00c6ff, #0072ff)';
     } else {
         modeLabel.textContent = 'NBG SoftPos';
-        document.body.style.background = 'linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb)';
+        document.body.style.background =
+            'linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb)';
     }
-});
+}
+
+modeToggle.addEventListener('change', updateMode);
+
+// Set initial mode on page load
+updateMode();

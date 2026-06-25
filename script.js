@@ -245,3 +245,6 @@ modeToggle.addEventListener('change', updateMode);
 
 // Set initial mode on page load
 updateMode();
+
+
+//hello

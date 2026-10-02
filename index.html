@@ -7,7 +7,6 @@
 
   <title>Get TID App</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -34,12 +33,12 @@
 <div class="top-bar">
 
 
-  <!-- ===================================================
+  <!-- =================================================
        Get TID
-       =================================================== -->
+       ================================================= -->
   <div class="button-text">
 
-    <button id="getTidBtn">
+    <button type="button" id="getTidBtn">
       getTid
     </button>
 
@@ -51,9 +50,9 @@
   </div>
 
 
-  <!-- ===================================================
+  <!-- =================================================
        Sale V2
-       =================================================== -->
+       ================================================= -->
   <div class="button-text sale-section">
 
     <div class="section-title">
@@ -61,21 +60,28 @@
     </div>
 
 
-    <!-- Sale payment options -->
+    <!-- =============================================
+         Sale V2 Payment Options
+         ============================================= -->
     <div class="sale-buttons">
 
-      <!-- Normal Sale V2 -->
-      <button id="getTidBtn2">
+      <!-- Standard Sale V2 -->
+      <!-- No PaymentType parameter -->
+      <button type="button" id="getTidBtn2">
         Standard
       </button>
 
-      <!-- Sale V2 with PaymentType = 0 -->
-      <button id="saleCardBtn">
+
+      <!-- Card Sale V2 -->
+      <!-- PaymentType = 0 -->
+      <button type="button" id="saleCardBtn">
         Card
       </button>
 
-      <!-- Sale V2 with PaymentType = 1 -->
-      <button id="saleIrisBtn">
+
+      <!-- IRIS Sale V2 -->
+      <!-- PaymentType = 1 -->
+      <button type="button" id="saleIrisBtn">
         IRIS
       </button>
 
@@ -90,12 +96,12 @@
   </div>
 
 
-  <!-- ===================================================
+  <!-- =================================================
        Void V2
-       =================================================== -->
+       ================================================= -->
   <div class="button-text">
 
-    <button id="getTidBtn3">
+    <button type="button" id="getTidBtn3">
       Start Void V2
     </button>
 
@@ -107,12 +113,12 @@
   </div>
 
 
-  <!-- ===================================================
+  <!-- =================================================
        Refund V2
-       =================================================== -->
+       ================================================= -->
   <div class="button-text">
 
-    <button id="getTidBtn4">
+    <button type="button" id="getTidBtn4">
       Start Refund V2
     </button>
 
@@ -128,10 +134,11 @@
 
 <!-- =====================================================
      Sale V2 Modal
+
      Used by:
-       - Standard
-       - Card
-       - IRIS
+     - Standard
+     - Card
+     - IRIS
      ===================================================== -->
 <div id="saleModal" class="modal">
 
@@ -139,45 +146,55 @@
 
     <h2>Enter Sale Amount</h2>
 
+
     <input
             type="number"
             id="saleAmount"
             placeholder="Sale Amount (required)"
+            inputmode="decimal"
             required
-    />
+    >
+
 
     <input
             type="number"
             id="tipAmount"
             placeholder="Tip (optional)"
-    />
+            inputmode="decimal"
+    >
+
 
     <input
             type="number"
             id="installments"
             placeholder="Installments (optional)"
-    />
+            inputmode="numeric"
+    >
+
 
     <input
             type="email"
             id="email"
             placeholder="Email (optional)"
-    />
+            inputmode="email"
+    >
+
 
     <input
             type="tel"
             id="phone"
             placeholder="Phone (optional)"
-    />
+            inputmode="tel"
+    >
 
 
     <div class="modal-buttons">
 
-      <button id="cancelModal">
+      <button type="button" id="cancelModal">
         Cancel
       </button>
 
-      <button id="confirmModal">
+      <button type="button" id="confirmModal">
         Confirm
       </button>
 
@@ -197,33 +214,38 @@
 
     <h2>Enter Original UID</h2>
 
+
     <input
             type="text"
             id="originalUID"
             placeholder="Original UID (required)"
             required
-    />
+    >
+
 
     <input
             type="email"
             id="customerEmail"
             placeholder="Customer Email (optional)"
-    />
+            inputmode="email"
+    >
+
 
     <input
             type="tel"
             id="customerPhone"
             placeholder="Customer Phone (optional)"
-    />
+            inputmode="tel"
+    >
 
 
     <div class="modal-buttons">
 
-      <button id="cancelUIDModal">
+      <button type="button" id="cancelUIDModal">
         Cancel
       </button>
 
-      <button id="confirmUIDModal">
+      <button type="button" id="confirmUIDModal">
         Confirm
       </button>
 
@@ -243,45 +265,54 @@
 
     <h2>Enter Transaction Details</h2>
 
+
     <input
             type="number"
             id="fourthAmount"
             placeholder="Amount (required)"
+            inputmode="decimal"
             required
-    />
+    >
+
 
     <input
             type="number"
             id="fourthInstallments"
             placeholder="Installments (optional)"
-    />
+            inputmode="numeric"
+    >
+
 
     <input
             type="tel"
             id="fourthPhone"
             placeholder="Customer Phone (optional)"
-    />
+            inputmode="tel"
+    >
+
 
     <input
             type="email"
             id="fourthEmail"
             placeholder="Customer Email (optional)"
-    />
+            inputmode="email"
+    >
+
 
     <input
             type="text"
             id="fourthInitialTransaction"
             placeholder="Initial Transaction (optional)"
-    />
+    >
 
 
     <div class="modal-buttons">
 
-      <button id="cancelFourthModal">
+      <button type="button" id="cancelFourthModal">
         Cancel
       </button>
 
-      <button id="confirmFourthModal">
+      <button type="button" id="confirmFourthModal">
         Confirm
       </button>
 

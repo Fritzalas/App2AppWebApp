@@ -1,246 +1,487 @@
-/* Body background only */
+/* =====================================================
+   Global
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh;
+
     font-family: Arial, sans-serif;
-    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+
+    background: linear-gradient(
+            -45deg,
+            #ff9a9e,
+            #fad0c4,
+            #a18cd1,
+            #fbc2eb
+    );
+
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
 
-    /* Flex container to center top-bar horizontally */
     display: flex;
     justify-content: center;
 }
 
-/* Top-bar container stacked at top center */
+
+/* =====================================================
+   Main Layout
+   ===================================================== */
+
 .top-bar {
     display: flex;
-    flex-direction: column; /* stack button-text pairs vertically */
-    align-items: center;    /* center horizontally */
-    gap: 2em;               /* space between first and second pair */
-    margin-top: 1em;        /* distance from top */
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 750px;
+
+    gap: 1.5em;
+
+    margin-top: 1em;
+    padding: 1em;
 }
 
-/* Each button-text group stacked vertically */
+
+/* =====================================================
+   Action Sections
+   ===================================================== */
+
 .button-text {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5em; /* space between button and its text */
+
+    width: 100%;
+
+    gap: 0.5em;
+
+    text-align: center;
 }
 
-/* Button styling */
+
+/* Standard action buttons */
 .button-text button {
     padding: 0.7em 1.5em;
+
     font-size: 1.2em;
     font-weight: bold;
+
     color: white;
-    background: rgba(0,0,0,0.25);
+    background: rgba(0, 0, 0, 0.25);
+
     border: none;
     border-radius: 10px;
+
     cursor: pointer;
-    transition: all 0.3s ease;
+
+    transition:
+            background 0.3s ease,
+            transform 0.3s ease;
 }
 
+
 .button-text button:hover {
-    background: rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.4);
     transform: scale(1.05);
 }
 
-/* Text styling */
-.button-text div {
-    max-width: 90%;
+
+/* Description boxes */
+.button-text > div:not(.sale-buttons):not(.section-title) {
+    width: 100%;
+    max-width: 620px;
+
+    padding: 0.7em 1em;
+
     font-size: 1em;
     line-height: 1.4em;
+
     text-align: center;
-    background: rgba(0,0,0,0.2);
-    padding: 0.7em 1em;
+
+    background: rgba(0, 0, 0, 0.2);
+
     border-radius: 10px;
+
     word-wrap: break-word;
 }
-/* Modal background */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
+
+
+/* =====================================================
+   Sale V2 Section
+   ===================================================== */
+
+.sale-section {
+    margin-top: 0.3em;
 }
 
-/* Modal content */
+
+/* "Sale V2" heading */
+.section-title {
+    margin: 0;
+
+    padding: 0;
+
+    font-size: 1.4em;
+    font-weight: bold;
+
+    color: white;
+
+    background: transparent;
+}
+
+
+/* Standard / Card / IRIS container */
+.sale-buttons {
+    display: flex;
+
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.8em;
+
+    width: 100%;
+
+    margin: 0.3em 0;
+
+    padding: 0;
+
+    background: transparent;
+}
+
+
+/* Sale option buttons */
+.sale-buttons button {
+    min-width: 125px;
+}
+
+
+/* Sale description */
+.sale-description {
+    width: 100%;
+    max-width: 620px;
+}
+
+
+/* =====================================================
+   Modal Background
+   ===================================================== */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    z-index: 999;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 1em;
+}
+
+
+/* =====================================================
+   Modal Content
+   ===================================================== */
+
 .modal-content {
+    width: 90%;
+    max-width: 400px;
+
+    padding: 2em;
+
     background: white;
     color: black;
-    padding: 2em;
+
     border-radius: 12px;
+
     text-align: center;
-    min-width: 280px;
-    max-width: 400px;
-    width: 90%;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+
+    box-shadow:
+            0 10px 25px rgba(0, 0, 0, 0.3);
+
     animation: fadeIn 0.3s ease-out;
 }
 
-/* Input styling */
-.modal-content input {
-    width: 100%;
-    padding: 0.7em;
-    margin-top: 0.7em;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    font-size: 1em;
+
+.modal-content h2 {
+    margin-top: 0;
 }
 
-/* Buttons */
+
+/* =====================================================
+   Modal Inputs
+   ===================================================== */
+
+.modal-content input {
+    width: 100%;
+
+    padding: 0.7em;
+
+    margin-top: 1em;
+
+    border: 2px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 1em;
+
+    outline: none;
+
+    transition: border-color 0.2s ease;
+}
+
+
+.modal-content input:focus {
+    border-color: #777;
+}
+
+
+/* =====================================================
+   Modal Buttons
+   ===================================================== */
+
 .modal-buttons {
     display: flex;
+
     gap: 1em;
+
     margin-top: 1.5em;
 }
 
+
 .modal-buttons button {
     flex: 1;
+
     padding: 0.7em;
+
     font-size: 1em;
     font-weight: bold;
+
     border: none;
     border-radius: 8px;
+
     cursor: pointer;
-    transition: all 0.3s ease;
+
+    transition: opacity 0.3s ease;
 }
 
-#cancelModal { background: #ccc; }
-#confirmModal { background: #4CAF50; color: white; }
 
 .modal-buttons button:hover {
-    opacity: 0.9;
+    opacity: 0.85;
 }
 
-/* Animation */
-@keyframes fadeIn {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-/* Ensure text input looks nice */
-.modal-content input[type="text"] {
-    width: 100%;
-    padding: 0.7em;
-    margin-top: 1em;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    font-size: 1em;
-}
-.modal-content input[type="email"],
-.modal-content input[type="tel"] {
-    width: 100%;
-    padding: 0.7em;
-    margin-top: 1em;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    font-size: 1em;
-}
-.button-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1em;
-    text-align: center;
-    max-width: 90%;
+
+/* Cancel buttons */
+#cancelModal,
+#cancelUIDModal,
+#cancelFourthModal {
+    background: #ccc;
+    color: black;
 }
 
-.button-text button {
-    padding: 0.7em 1.5em;
-    font-size: 1.2em;
-    font-weight: bold;
+
+/* Confirm buttons */
+#confirmModal,
+#confirmUIDModal,
+#confirmFourthModal {
+    background: #4CAF50;
     color: white;
-    background: rgba(0,0,0,0.25);
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.button-text button:hover {
-    background: rgba(0,0,0,0.4);
-    transform: scale(1.05);
-}
 
-.button-text div {
-    margin-top: 0.5em;
-    background: rgba(0,0,0,0.2);
-    padding: 0.7em 1em;
-    border-radius: 10px;
-    word-wrap: break-word;
-}
-.modal-content input[type="number"],
-.modal-content input[type="tel"],
-.modal-content input[type="email"],
-.modal-content input[type="text"] {
-    width: 100%;
-    padding: 0.7em;
-    margin-top: 1em;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    font-size: 1em;
-}
-/* Mode Switcher container */
+/* =====================================================
+   Mode Switcher
+   ===================================================== */
+
 .mode-switcher {
     position: fixed;
+
     top: 10px;
     left: 10px;
+
     display: flex;
     align-items: center;
+
     gap: 0.5em;
+
     z-index: 1000;
-    font-weight: bold;
-    color: white;
+
     font-size: 1em;
+    font-weight: bold;
+
+    color: white;
 }
 
-/* Toggle switch styling */
+
+/* =====================================================
+   Toggle Switch
+   ===================================================== */
+
 .switch {
     position: relative;
+
     display: inline-block;
+
     width: 50px;
     height: 26px;
+
+    flex-shrink: 0;
 }
+
 
 .switch input {
     opacity: 0;
+
     width: 0;
     height: 0;
 }
 
+
 .slider {
     position: absolute;
+
     cursor: pointer;
-    top: 0; left: 0;
-    right: 0; bottom: 0;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
     background-color: rgba(255, 255, 255, 0.3);
-    transition: 0.4s;
+
     border-radius: 34px;
+
+    transition: 0.4s;
 }
 
-.slider:before {
+
+.slider::before {
     position: absolute;
+
     content: "";
-    height: 20px;
+
     width: 20px;
+    height: 20px;
+
     left: 3px;
     bottom: 3px;
+
     background-color: white;
-    transition: 0.4s;
+
     border-radius: 50%;
+
+    transition: 0.4s;
 }
 
-input:checked + .slider {
+
+.switch input:checked + .slider {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-input:checked + .slider:before {
+
+.switch input:checked + .slider::before {
     transform: translateX(24px);
+}
+
+
+/* =====================================================
+   Animations
+   ===================================================== */
+
+@keyframes fadeIn {
+
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+@keyframes gradientBG {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* =====================================================
+   Mobile
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        min-height: 100vh;
+    }
+
+
+    .top-bar {
+        padding: 4em 1em 2em;
+        gap: 1.3em;
+    }
+
+
+    /*
+       Stack Sale buttons vertically on smaller screens
+    */
+    .sale-buttons {
+        flex-direction: column;
+        gap: 0.6em;
+    }
+
+
+    .sale-buttons button {
+        width: 100%;
+        max-width: 260px;
+    }
+
+
+    .section-title {
+        font-size: 1.3em;
+    }
+
+
+    .button-text > div:not(.sale-buttons):not(.section-title) {
+        max-width: 100%;
+    }
+
+
+    .modal-content {
+        width: 100%;
+        padding: 1.5em;
+    }
+
+
+    .mode-switcher {
+        font-size: 0.9em;
+    }
 }

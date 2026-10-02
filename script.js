@@ -2,6 +2,10 @@
 const button = document.getElementById('getTidBtn');
 const modal = document.getElementById('saleModal');
 const openBtn = document.getElementById('getTidBtn2');
+const saleCardBtn = document.getElementById('saleCardBtn');
+const saleIrisBtn = document.getElementById('saleIrisBtn');
+
+let selectedPaymentType = null;
 const cancelBtn = document.getElementById('cancelModal');
 const confirmBtn = document.getElementById('confirmModal');
 const amountInput = document.getElementById('saleAmount');
@@ -14,11 +18,21 @@ const modeLabel = document.getElementById('modeLabel');
 let json;
 
 openBtn.addEventListener('click', () => {
+    selectedPaymentType = null;
     modal.style.display = 'flex'; // show modal
 });
 
 cancelBtn.addEventListener('click', () => {
     modal.style.display = 'none'; // close modal
+});
+saleCardBtn.addEventListener('click', () => {
+    selectedPaymentType = 0;
+    modal.style.display = 'flex';
+});
+
+saleIrisBtn.addEventListener('click', () => {
+    selectedPaymentType = 1;
+    modal.style.display = 'flex';
 });
 
 confirmBtn.addEventListener('click', () => {
@@ -39,6 +53,10 @@ confirmBtn.addEventListener('click', () => {
         // Build URI
         createTestProviderDataV2();
         let uri = `request/v2?Amount=${amount}&CurrencyCode=EUR&TxnType=0&CashbackAmount=0&PreLoadTransaction=false&PreloadExpiration=0&isTaxFree=false&TipAmount=${tipAmount.value.trim()}&Installments=${installments.value.trim()}&CustomerEmail=${email.value.trim()}&CustomerPhone=${phone.value.trim()}&uid=${crypto.randomUUID().toString()}&transactionName=sale&ProviderData=${json}&appId=WEB_INTENT&callback=${encodeURIComponent(callbackUrl)}`;
+        // Add PaymentType only for Card / IRIS buttons
+        if (selectedPaymentType !== null) {
+            uri += `&PaymentType=${selectedPaymentType}`;
+        }
         // Encode URI
         try {
             uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
@@ -245,6 +263,3 @@ modeToggle.addEventListener('change', updateMode);
 
 // Set initial mode on page load
 updateMode();
-
-
-//hello

@@ -1,85 +1,255 @@
 // Grab elements from the DOM
+// =====================================================
+// DOM Elements
+// =====================================================
+
 const button = document.getElementById('getTidBtn');
+
 const modal = document.getElementById('saleModal');
+
 const openBtn = document.getElementById('getTidBtn2');
 const saleCardBtn = document.getElementById('saleCardBtn');
 const saleIrisBtn = document.getElementById('saleIrisBtn');
 
-let selectedPaymentType = null;
 const cancelBtn = document.getElementById('cancelModal');
 const confirmBtn = document.getElementById('confirmModal');
+
 const amountInput = document.getElementById('saleAmount');
 const tipAmount = document.getElementById('tipAmount');
 const installments = document.getElementById('installments');
 const email = document.getElementById('email');
 const phone = document.getElementById('phone');
+
 const modeToggle = document.getElementById('modeToggle');
 const modeLabel = document.getElementById('modeLabel');
+
 let json;
 
-openBtn.addEventListener('click', () => {
+
+// =====================================================
+// Sale V2 Payment Type
+//
+// null = Standard Sale
+// 0    = Card
+// 1    = IRIS
+// =====================================================
+
+let selectedPaymentType = null;
+
+
+// =====================================================
+// Open Sale Modal - Standard
+// =====================================================
+
+openBtn.addEventListener('click', function () {
+
     selectedPaymentType = null;
-    modal.style.display = 'flex'; // show modal
+
+    console.log("Standard Sale selected");
+    console.log("PaymentType:", selectedPaymentType);
+
+    modal.style.display = 'flex';
 });
 
-cancelBtn.addEventListener('click', () => {
-    modal.style.display = 'none'; // close modal
-});
-saleCardBtn.addEventListener('click', () => {
+
+// =====================================================
+// Open Sale Modal - Card
+// =====================================================
+
+saleCardBtn.addEventListener('click', function () {
+
     selectedPaymentType = 0;
+
+    console.log("Card Sale selected");
+    console.log("PaymentType:", selectedPaymentType);
+
     modal.style.display = 'flex';
 });
 
-saleIrisBtn.addEventListener('click', () => {
+
+// =====================================================
+// Open Sale Modal - IRIS
+// =====================================================
+
+saleIrisBtn.addEventListener('click', function () {
+
     selectedPaymentType = 1;
+
+    console.log("IRIS Sale selected");
+    console.log("PaymentType:", selectedPaymentType);
+
     modal.style.display = 'flex';
 });
 
-confirmBtn.addEventListener('click', () => {
-    const amount = amountInput.value.trim();
-    if (amount && Number(amount) > 0) {
-        // Determine which mode is active
-        const isCosmote = document.getElementById('modeToggle').checked;
-        // Dynamically set URI prefix and package name
-        const uriPrefix = isCosmote ? `cosmotepaytxn/` : `nbgpaytxn/`;
-        const packageName = isCosmote
-            ? `com.mellongroup.cosmotepos.debug`
-            : `com.mellongroup.nbgsoftpos.revised.debug`;
-        // This callback URL should be publicly accessible if using https
-        const callbackUrl = "https://fritzalas.github.io/App2AppWebApp/result";
-        const msg = `Performing Sale V2 transaction`;
-        console.log(msg)
-        // Construct the deeplink URI
-        // Build URI
-        createTestProviderDataV2();
-        let uri = `request/v2?Amount=${amount}&CurrencyCode=EUR&TxnType=0&CashbackAmount=0&PreLoadTransaction=false&PreloadExpiration=0&isTaxFree=false&TipAmount=${tipAmount.value.trim()}&Installments=${installments.value.trim()}&CustomerEmail=${email.value.trim()}&CustomerPhone=${phone.value.trim()}&uid=${crypto.randomUUID().toString()}&transactionName=sale&ProviderData=${json}&appId=WEB_INTENT&callback=${encodeURIComponent(callbackUrl)}`;
-        // Add PaymentType only for Card / IRIS buttons
-        if (selectedPaymentType !== null) {
-            uri += `&PaymentType=${selectedPaymentType}`;
-        }
-        // Encode URI
-        try {
-            uri = uri + `&://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
-            uri = encodeURIComponent(uri);
-            uri = uriPrefix + uri;
-        } catch (e) {
-            console.log(e.message);
-        }
-        console.log("uri " + uri);
-        console.log("Sending txn request through intent");
-        uri = `intent://` + uri + `://result#Intent;scheme=https;action=android.intent.action.VIEW;package=${packageName};end`;
-        // Open URI using deeplink
-        window.location.href = uri; // triggers Android app if installed
-    } else {
-        alert('Please enter a valid amount.');
-    }
+
+// =====================================================
+// Cancel Sale Modal
+// =====================================================
+
+cancelBtn.addEventListener('click', function () {
+
+    modal.style.display = 'none';
+
 });
 
-// Close modal if clicked outside
-window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        modal.style.display = 'none';
+
+// =====================================================
+// Confirm Sale
+// =====================================================
+
+confirmBtn.addEventListener('click', function () {
+
+    const amount = amountInput.value.trim();
+
+    if (!amount || Number(amount) <= 0) {
+
+        alert('Please enter a valid amount.');
+
+        return;
     }
+
+
+    // =================================================
+    // Determine active SoftPOS
+    // =================================================
+
+    const isCosmote = modeToggle.checked;
+
+
+    const uriPrefix = isCosmote
+        ? 'cosmotepaytxn/'
+        : 'nbgpaytxn/';
+
+
+    const packageName = isCosmote
+        ? 'com.mellongroup.cosmotepos.debug'
+        : 'com.mellongroup.nbgsoftpos.revised.debug';
+
+
+    const callbackUrl =
+        'https://fritzalas.github.io/App2AppWebApp/result';
+
+
+    // =================================================
+    // Create Provider Data
+    // =================================================
+
+    createTestProviderDataV2();
+
+
+    // =================================================
+    // Build Sale V2 request
+    // =================================================
+
+    let uri =
+        `request/v2?Amount=${amount}` +
+        `&CurrencyCode=EUR` +
+        `&TxnType=0` +
+        `&CashbackAmount=0` +
+        `&PreLoadTransaction=false` +
+        `&PreloadExpiration=0` +
+        `&isTaxFree=false` +
+        `&TipAmount=${tipAmount.value.trim()}` +
+        `&Installments=${installments.value.trim()}` +
+        `&CustomerEmail=${email.value.trim()}` +
+        `&CustomerPhone=${phone.value.trim()}` +
+        `&uid=${crypto.randomUUID().toString()}` +
+        `&transactionName=sale` +
+        `&ProviderData=${json}` +
+        `&appId=WEB_INTENT` +
+        `&callback=${encodeURIComponent(callbackUrl)}`;
+
+
+    // =================================================
+    // Add PaymentType
+    //
+    // Standard -> parameter is NOT sent
+    // Card     -> PaymentType=0
+    // IRIS     -> PaymentType=1
+    // =================================================
+
+    if (selectedPaymentType !== null) {
+
+        uri += `&PaymentType=${selectedPaymentType}`;
+
+    }
+
+
+    console.log("--------------------------------");
+    console.log("SALE REQUEST");
+    console.log("PaymentType:", selectedPaymentType);
+    console.log("URI before encoding:");
+    console.log(uri);
+    console.log("--------------------------------");
+
+
+    // =================================================
+    // Create Android Intent
+    // =================================================
+
+    try {
+
+        uri +=
+            `&://result#Intent;` +
+            `scheme=https;` +
+            `action=android.intent.action.VIEW;` +
+            `package=${packageName};` +
+            `end`;
+
+
+        uri = encodeURIComponent(uri);
+
+
+        uri = uriPrefix + uri;
+
+
+    } catch (e) {
+
+        console.error("Error creating URI:", e);
+
+        return;
+    }
+
+
+    // =================================================
+    // Final Android Intent
+    // =================================================
+
+    uri =
+        `intent://` +
+        uri +
+        `://result#Intent;` +
+        `scheme=https;` +
+        `action=android.intent.action.VIEW;` +
+        `package=${packageName};` +
+        `end`;
+
+
+    console.log("FINAL INTENT:");
+    console.log(uri);
+
+
+    // =================================================
+    // Launch SoftPOS
+    // =================================================
+
+    window.location.href = uri;
+
+});
+
+
+// =====================================================
+// Close Sale Modal when clicking outside
+// =====================================================
+
+window.addEventListener('click', function (event) {
+
+    if (event.target === modal) {
+
+        modal.style.display = 'none';
+
+    }
+
 });
 
 // Add click event
